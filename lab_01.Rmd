@@ -130,7 +130,9 @@ Check to make sure your function returns the same answers as the three above.
 
 
 ```{r}
-
+qpareto_1 <- function(p, alpha, x0) {
+x0 * (1 - p) ^ (-1 / (alpha - 1))  
+}
 ```
 
 ```{r qpareto_1, eval=FALSE, results='hold'}
@@ -157,8 +159,12 @@ appropriate quantile, i.e., `qpareto_1()` is called from inside of
 `qpareto_2()`. Test your function with the two function calls below.
 
 ```{r}
-
-
+qpareto_2 <- function(p, alpha, x0, lower.tail = TRUE) {
+  if(lower.tail == FALSE){
+    p <- 1 - p
+  }
+  qpareto_1(p, alpha, x0) 
+}
 ```
 
 
@@ -196,8 +202,20 @@ Test your function on the five function calls below.
 Remember to set the chunk option `error=TRUE` so your document will knit.
 
 ```{r}
-
-
+qpareto <- function(p, alpha, x0, lower.tail = TRUE) {
+  if( p < 0 || p > 1) {
+    print("Check p so 0 < p < 1")
+  }
+  if (alpha < 1) {
+    print("Check that alpha > 1")
+  }
+  if (x0 < 1) {
+    print("Check that x0 > 1")
+  }
+  if (p > 0 || p < 1 & alpha > 1 & x0 > 1) {
+  qpareto_2(p, alpha, x0, lower.tail = TRUE)
+  }
+}
 ```
 
 
