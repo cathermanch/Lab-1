@@ -30,6 +30,11 @@ $$e = \lim_{n \to \infty}\bigg(1 + \frac{1}{n}\bigg)^n.$$
 
 ```{r limit-e-fcn}
 
+limit_e <- function(n){
+  calc <- (1 + (1 / n)) ^ n
+  print(calc)
+}
+
 
 ```
 
